@@ -2,23 +2,22 @@ type Auth = {
   isAuthenticated: boolean;
   token?: string;
 };
+
+type Student = {
+  ID: number;
+  Name: string;
+  Mobile: string;
+  Email: string;
+  NationalID: string;
+  Age: number;
+  NameArabic?: string;
+  NameEnglish?: string;
+  FirstName?: string;
+  LastName?: string;
+};
+
 type ApiResponse = {
-  Data:
-    | string
-    | number
-    | boolean
-    | {
-        ID: number;
-        Name: string;
-        Mobile: string;
-        Email: string;
-        NationalID: string;
-        Age: number;
-        NameArabic?: string;
-        NameEnglish?: string;
-        FirstName?: string;
-        LastName?: string;
-      }[];
+  Data: string | number | boolean | Student[];
   IsAuthorized: boolean;
   Message: string;
   Success: boolean;

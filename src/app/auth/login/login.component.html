@@ -1,9 +1,10 @@
 <div class="py-5">
-  <p class="text-center">join msgggg</p>
+  <p class="mb-5 h2 text-primary text-center">Manage your system now</p>
   <app-form
     [controls]="controls"
     [loading]="loading"
-    (formSubmit)="submit($event)" [submitText]="'Login'"/>
+    (formSubmit)="submit($event)"
+    [submitText]="'Login'" />
   <p class="text-center mt-3">
     You don't have an account? <a routerLink="/register">Register</a>
   </p>
