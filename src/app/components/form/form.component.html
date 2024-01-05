@@ -1,0 +1,38 @@
+<form
+  class="d-flex g-3 flex-column align-items-center"
+  [formGroup]="form"
+  (ngSubmit)="submit()">
+  @if(controls){ @for ( control of controls; track $index) {
+  <div class="col-md-4 position-relative" style="height: 75px">
+    @if(control.name === 'Password' || control.name === 'rePassword'){
+    <app-toggle-pass />
+    }
+    <div [class]="[controlIsValid(control), 'input-group', 'has-validation']">
+      <input
+        [type]="control.type"
+        [placeholder]="control.placeHolder"
+        [formControlName]="control.name"
+        [name]="control.name"
+        [required]="control.required"
+        [class]="[controlIsValid(control), 'form-control']" />
+      <div class="invalid-feedback">
+        {{ feadback(control) }}
+      </div>
+    </div>
+  </div>
+  } }
+  <div class="col-md-4 text-center">
+    @if(loading){
+    <app-spinner />
+    }@else {
+    <button
+      class="btn btn-primary"
+      [disabled]="form.invalid ? true : false"
+      type="submit">
+      {{ submitText }}
+    </button>
+    } @if(form.errors?.['errRes']){
+    <p class="text-danger mt-2 h5">{{form.errors?.['errRes'] | json }}</p>
+    }
+  </div>
+</form>

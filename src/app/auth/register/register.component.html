@@ -1,1 +1,268 @@
-<p>register works!</p>
+<div class="py-5">
+  <form
+    class="d-flex g-3 flex-column align-items-center"
+    [formGroup]="form"
+    (ngSubmit)="submit()">
+    <!--  -->
+
+    <!--  -->
+    <div class="col-md-4" style="height: 75px">
+      <div
+        [class]="[
+          form.controls.Name.touched
+            ? form.controls.Name.invalid
+              ? 'is-invalid'
+              : 'is-valid'
+            : '',
+          'input-group',
+          'has-validation'
+        ]">
+        <!-- <span class="input-group-text"
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          viewBox="0 0 16 16">
+          <path
+            d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+        </svg>
+      </span> -->
+        <input
+          type="text"
+          placeholder="Full Name"
+          formControlName="Name"
+          name="Name"
+          required
+          [class]="[
+            form.controls.Name.touched
+              ? form.controls.Name.invalid
+                ? 'is-invalid'
+                : 'is-valid'
+              : '',
+            'form-control'
+          ]" />
+
+        <div class="invalid-feedback">
+          {{
+            form.controls.Name.hasError('required')
+              ? 'Your Name is required'
+              : form.controls.Name.hasError('pattern')
+              ? 'Full name must having atleast three character'
+              : ''
+          }}
+        </div>
+      </div>
+    </div>
+
+    <!--  -->
+    <div class="col-md-4" style="height: 75px">
+      <div
+        [class]="[
+          form.controls.Username.touched
+            ? form.controls.Username.invalid
+              ? 'is-invalid'
+              : 'is-valid'
+            : '',
+          'input-group',
+          'has-validation'
+        ]">
+        <!-- <span class="input-group-text">&#64; </span> -->
+        <input
+          type="text"
+          placeholder="Username"
+          formControlName="Username"
+          name="Username"
+          required
+          [class]="[
+            form.controls.Username.touched
+              ? form.controls.Username.invalid
+                ? 'is-invalid'
+                : 'is-valid'
+              : '',
+            'form-control'
+          ]" />
+
+        <div class="invalid-feedback">
+          {{
+            form.controls.Username.hasError('required')
+              ? 'Username is required.'
+              : form.controls.Username.hasError('pattern')
+              ? '+3 to 15 alphanumeric string that may include _ and -'
+              : ''
+          }}
+        </div>
+      </div>
+    </div>
+
+    <!--  -->
+    <div class="col-md-4 position-relative" style="height: 75px">
+      <span class="show-password" (click)="toggleShowPass($event)">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          viewBox="0 0 16 16">
+          @if(showPass){
+          <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
+          <path
+            d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
+          } @else {
+          <path
+            d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7 7 0 0 0 2.79-.588M5.21 3.088A7 7 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474z" />
+          <path
+            d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12z" />
+          }
+        </svg>
+      </span>
+
+      <div
+        [class]="[
+          form.controls.Password.touched
+            ? form.controls.Password.invalid
+              ? 'is-invalid'
+              : 'is-valid'
+            : '',
+          'input-group',
+          'has-validation'
+        ]">
+        <!-- <span class="input-group-text"
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-lock-fill"
+          viewBox="0 0 16 16">
+          <path
+            d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2" />
+        </svg>
+      </span> -->
+        <input
+          type="password"
+          placeholder="Password"
+          formControlName="Password"
+          name="Password"
+          required
+          [class]="[
+            form.controls.Password.touched
+              ? form.controls.Password.invalid
+                ? 'is-invalid'
+                : 'is-valid'
+              : '',
+            'form-control'
+          ]" />
+
+        <div class="invalid-feedback">
+          {{
+            form.controls.Password.hasError('required')
+              ? 'Password is required.'
+              : form.controls.Password.hasError('pattern')
+              ? '8+ characters, 1 uppercase, 1 lowercase, 1 number, 1 special character.'
+              : ''
+          }}
+        </div>
+      </div>
+    </div>
+
+    <!--  -->
+    <div class="col-md-4 position-relative" style="height: 75px">
+      <!--  -->
+      <span class="show-password" (click)="toggleShowPass($event)">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          viewBox="0 0 16 16">
+          @if(showRePass){
+          <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
+          <path
+            d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
+          } @else {
+          <path
+            d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7 7 0 0 0 2.79-.588M5.21 3.088A7 7 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474z" />
+          <path
+            d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12z" />
+          }
+        </svg>
+      </span>
+
+      <div
+        [class]="[
+        form.controls.rePassword.touched
+          ? form.controls.rePassword.invalid || form.errors?.['passwordMismatch']
+            ? 'is-invalid'
+            : 'is-valid'
+          : ''
+          ,
+        'input-group',
+        'has-validation'
+      ]">
+        <!-- <span class="input-group-text"
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-lock-fill"
+          viewBox="0 0 16 16">
+          <path
+            d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2" />
+        </svg>
+      </span> -->
+
+        <input
+          type="password"
+          placeholder="Re-password"
+          formControlName="rePassword"
+          name="rePassword"
+          required
+          [class]="[
+          form.controls.rePassword.touched
+            ? form.controls.rePassword.invalid || form.errors?.['passwordMismatch']
+              ? 'is-invalid'
+              : 'is-valid'
+            : '',
+          'form-control'
+        ]" />
+
+        <div class="invalid-feedback">
+          {{
+          form.controls.rePassword.hasError('required')
+            ? 'Re-password is required'
+            : form.controls.rePassword.hasError('pattern')
+            ? '8+ characters, 1 uppercase, 1 lowercase, 1 number, 1 special character.'
+            : form.errors?.['passwordMismatch']
+            ? 'The two passwords must match'
+            : ''
+          }}
+        </div>
+      </div>
+    </div>
+
+    <!--  -->
+    <div class="col-md-4 text-center">
+      <!--  -->
+      @if(loading){
+      <app-spinner />
+      }@else {
+      <button
+        class="btn btn-primary"
+        [disabled]="form.invalid ? true : false"
+        type="submit">
+        Register
+      </button>
+      }
+
+      <!--  -->
+      @if(form.errors?.['errRes']){
+      <p class="text-danger mt-2 h5">{{form.errors?.['errRes'] | json }}</p>
+      }
+    </div>
+  </form>
+  <p class="text-center mt-3">
+    Do you have account? <a routerLink="/login">Login</a>
+  </p>
+</div>

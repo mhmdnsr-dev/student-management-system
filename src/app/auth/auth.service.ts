@@ -18,14 +18,18 @@ export class AuthService {
     return this.AUTH.value;
   }
 
+  get subscribe() {
+    return this.AUTH.subscribe.bind(this.AUTH);
+  }
+
   login(token: string) {
     const auth = {
       isAuthenticated: true,
       token,
     };
+
     this.AUTH.next(auth);
     localStorage.setItem('auth', JSON.stringify(auth));
-
     this.redirToHome();
   }
 
@@ -33,9 +37,7 @@ export class AuthService {
     this.AUTH.next({
       isAuthenticated: false,
     });
-
     localStorage.removeItem('auth');
-
     this.redirToLogin();
   }
 

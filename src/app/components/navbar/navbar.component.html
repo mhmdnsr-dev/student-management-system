@@ -9,14 +9,14 @@
         alt="logo" />
     </a>
 
-    <!-- TODO: if user auth -->
-    @if (false) {
+    <!--  -->
+    @if (userAuth.isAuthenticated) {
 
     <!-- TODO: Search component -->
 
     <ul class="navbar-nav mb-2 mb-lg-0 gap-3">
       <li class="nav-item">
-        <button type="button" class="btn btn-outline-danger">
+        <button type="button" class="btn btn-outline-danger" (click)="logout()">
           Logout
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -37,8 +37,8 @@
     </ul>
     }
 
-    <!-- TODO: if user not auth -->
-    @if (true) {
+    <!--  -->
+    @if (!userAuth.isAuthenticated) {
     <ul class="navbar-nav mb-2 mb-lg-0 gap-3">
       <li class="nav-item">
         <a

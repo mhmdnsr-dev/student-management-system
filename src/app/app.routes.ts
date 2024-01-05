@@ -1,19 +1,20 @@
-import { Routes, UrlSegment } from '@angular/router';
+import { Routes } from '@angular/router';
 import { authGuard } from './auth/auth.guard';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
-import { FooterComponent } from './components/footer/footer.component';
-
-const matcher = (segment: string, url: UrlSegment[]) => {
-  if (url[0]?.path === segment) return { consumed: url };
-  return null;
-};
+import { StudentListComponent } from './student-list/student-list.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 export const routes: Routes = [
   {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full',
+  },
+  {
+    path: 'home',
+    component: StudentListComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'login',
@@ -24,5 +25,9 @@ export const routes: Routes = [
     path: 'register',
     component: RegisterComponent,
     canActivate: [authGuard],
+  },
+  {
+    path: '**',
+    component: NotFoundComponent,
   },
 ];
