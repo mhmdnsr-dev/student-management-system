@@ -25,7 +25,7 @@ import { TogglePassComponent } from '../toggle-pass/toggle-pass.component';
 export class FormComponent {
   @Input() controls!: _FormControl[];
 
-  @Input() submitText: string ='Submit'
+  @Input() submitText: string = 'Submit';
 
   @Input() loading: boolean = false;
 
@@ -61,7 +61,7 @@ export class FormComponent {
 
   feadback(control: _FormControl) {
     return this.form.controls[control.name].hasError('required')
-      ? control.name + ' is required'
+      ? control.placeHolder + ' is required'
       : this.form.controls[control.name].hasError('pattern')
       ? control.pattern.msg
       : this.form.errors?.['passwordMismatch'] && control.name === 'rePassword'

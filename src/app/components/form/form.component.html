@@ -9,11 +9,11 @@
     }
     <div [class]="[controlIsValid(control), 'input-group', 'has-validation']">
       <input
-        [type]="control.type"
+        [type]="control.type || 'text'"
         [placeholder]="control.placeHolder"
         [formControlName]="control.name"
         [name]="control.name"
-        [required]="control.required"
+        [required]="control.required || true"
         [class]="[controlIsValid(control), 'form-control']" />
       <div class="invalid-feedback">
         {{ feadback(control) }}

@@ -25,7 +25,7 @@ type ApiResponse = {
 };
 
 type _FormControl = {
-  type: string;
+  type?: string;
   icon?: any;
   name: string;
   initianlValue?: any;
@@ -34,5 +34,5 @@ type _FormControl = {
     msg: string;
   };
   placeHolder: string;
-  required: boolean;
+  required?: boolean;
 };
