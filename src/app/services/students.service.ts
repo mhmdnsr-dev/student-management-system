@@ -22,10 +22,20 @@ export class StudentsService {
   }
 
   createStudent(student: Student) {
-    this.Students.next([student, ...this.studentsValue]);
+    this.Students.next([student, ...this.Students.value]);
   }
 
   deleteStudent(id: number) {
     this.Students.next([...this.Students.value.filter(s => s.ID !== id)]);
+  }
+
+  editStudent(student: Student) {
+    
+    this.Students.next([
+      ...this.Students.value.map(s => {
+        if (s.ID === student.ID) return student;
+        return s;
+      }),
+    ]);
   }
 }

@@ -17,7 +17,7 @@ type Student = {
 };
 
 type ApiResponse = {
-  Data: string | number | boolean | Student[];
+  Data: string | number | boolean | Student[] | Student;
   IsAuthorized: boolean;
   Message: string;
   Success: boolean;

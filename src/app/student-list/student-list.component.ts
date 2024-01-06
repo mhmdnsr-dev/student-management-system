@@ -6,10 +6,12 @@ import { StudentCardComponent } from '../components/student-card/student-card.co
 import { SpinnerComponent } from '../components/ui/spinner/spinner.component';
 import { ModalComponent } from '../components/modal/modal.component';
 import {
+  ageControl,
   emailControl,
   firstNameControl,
   lastNameControl,
   mobileControl,
+  nationalIDControl,
 } from '../../utils/form-controls';
 import { FormGroup } from '@angular/forms';
 
@@ -29,23 +31,8 @@ export class StudentListComponent {
     lastNameControl,
     emailControl,
     mobileControl,
-    {
-      name: 'NationalID',
-      pattern: {
-        msg: 'The national ID must be 14 numbers',
-        value: /^[1-9]{14}$/,
-      },
-      placeHolder: 'NationalID',
-    },
-    {
-      name: 'Age',
-      pattern: {
-        msg: 'Must be over 17 years old',
-        value: /^(1[89]|[2-9]\d)$/,
-      },
-      placeHolder: 'Age',
-      type: 'number',
-    },
+    nationalIDControl,
+    ageControl,
   ];
 
   constructor(

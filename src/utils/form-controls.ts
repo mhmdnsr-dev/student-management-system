@@ -71,3 +71,22 @@ export const mobileControl: _FormControl = {
   placeHolder: 'Phone Number',
   type: 'tel',
 };
+
+export const nationalIDControl: _FormControl = {
+  name: 'NationalID',
+  pattern: {
+    msg: 'The national ID must be 14 numbers',
+    value: /^[1-9]{14}$/,
+  },
+  placeHolder: 'NationalID',
+};
+
+export const ageControl: _FormControl = {
+  name: 'Age',
+  pattern: {
+    msg: 'Must be over 17 years old',
+    value: /^(1[89]|[2-9]\d)$/,
+  },
+  placeHolder: 'Age',
+  type: 'number',
+};

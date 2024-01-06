@@ -19,6 +19,14 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
+    path: 'student/edit/:id',
+    loadComponent: () =>
+      import('./student-edit/student-edit.component').then(
+        m => m.StudentEditComponent
+      ),
+    canActivate: [authGuard],
+  },
+  {
     path: 'login',
     component: LoginComponent,
     canActivate: [authGuard],

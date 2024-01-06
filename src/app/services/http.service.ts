@@ -18,8 +18,7 @@ export class HttpService {
     const v = await firstValueFrom(
       this.httpClient.get<ApiResponse>(`${environment.apiUrl}/Student/Get`)
     );
-    if (v.Success && typeof v.Data === 'object')
-      this.studentsService.students = v.Data;
+    if (v.Success) this.studentsService.students = v.Data as Student[];
   }
 
   async delStudent(id: number) {
@@ -33,6 +32,34 @@ export class HttpService {
     else {
       //TODO: Handling err
     }
+  }
+
+  async getEditableStudent(id: number) {
+    const v = await firstValueFrom(
+      this.httpClient.get<ApiResponse>(
+        `${environment.apiUrl}/Student/GetEditableByID?id=${id}`
+      )
+    );
+
+    if (v.Success) return v.Data;
+    else {
+      throw new Error(v.Message);
+    }
+  }
+
+  async editStudent(student: Student) {
+    const v = await firstValueFrom(
+      this.httpClient.put<ApiResponse>(
+        `${environment.apiUrl}/Student/PUT`,
+        student
+      )
+    );
+
+    if (v.Success) this.studentsService.editStudent(student);
+    else {
+      // throw new Error(v.Message);
+    }
+    return v;
   }
 
   async createStudent(form: FormGroup) {
