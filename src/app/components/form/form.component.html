@@ -3,7 +3,7 @@
   [formGroup]="form"
   (ngSubmit)="submit()">
   @if(controls){ @for ( control of controls; track $index) {
-  <div class="col-md-4 position-relative" style="height: 75px">
+  <div class="col-4 position-relative" style="height: 75px; width: 400px">
     @if(control.name === 'Password' || control.name === 'rePassword'){
     <app-toggle-pass />
     }
@@ -21,7 +21,7 @@
     </div>
   </div>
   } }
-  <div class="col-md-4 text-center">
+  <div class="col-4 text-center">
     @if(loading){
     <app-spinner />
     }@else {

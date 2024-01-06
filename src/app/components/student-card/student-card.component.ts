@@ -1,13 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpService } from '../../services/http.service';
-import { AlertModalComponent } from '../alert-modal/alert-modal.component';
+import { ModalComponent } from '../modal/modal.component';
 import { SpinnerComponent } from '../ui/spinner/spinner.component';
 
 @Component({
   selector: 'app-student-card',
   standalone: true,
-  imports: [AlertModalComponent, SpinnerComponent],
+  imports: [ModalComponent, SpinnerComponent],
   templateUrl: './student-card.component.html',
   styleUrl: './student-card.component.css',
 })
@@ -25,8 +25,6 @@ export class StudentCardComponent {
     this.loading = true;
 
     await this.httpService.delStudent(this.student.ID);
-
-    console.log(this.student);
 
     this.loading = false;
   }
