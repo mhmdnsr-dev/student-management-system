@@ -1,1 +1,26 @@
-<p>student-list works!</p>
+<div class="student-list">
+  <div class="text-center my-3">
+    <button class="btn btn-primary active new_btn">
+      New Student
+      <img src="/assets/images/icons/plus-80.png" width="40px" />
+    </button>
+  </div>
+
+  <!--  -->
+  <div class="rounded-3 col-11 m-auto overflow-hidden">
+    <div class="header d-flex justify-content-between text-white">
+      <div class="text-center w-25 py-4 h5 mb-0 h6 mb-0">Name</div>
+      <div class="text-center w-25 py-4 h6 mb-0 h6 mb-0">Email</div>
+      <div class="text-center w-25 py-4 h6 mb-0 h6 mb-0">Mobile</div>
+      <div class="text-center w-25 py-4 h6 mb-0 h6 mb-0">Age</div>
+      <div class="text-center w-25 py-4 h6 mb-0 h6 mb-0">NationalID</div>
+    </div>
+    @if(students.length){ @for (student of students; track $index) {
+    <app-student-card [student]="student" />
+    } } @else {
+    <div class="d-flex justify-content-center">
+      <app-spinner class="mt-5" />
+    </div>
+    }
+  </div>
+</div>

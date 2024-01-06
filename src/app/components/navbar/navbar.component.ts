@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -12,16 +13,19 @@ import { environment } from '../../../environments/environment';
 })
 export class NavbarComponent {
   userAuth!: Auth;
+
+  subscriptions: Subscription[] = [];
   constructor(
     private authService: AuthService,
     private httpClient: HttpClient
   ) {
-    console.log(this.authService.subscribe);
-    this.authService.subscribe({
+    const subscription = this.authService.subscribe({
       next: v => {
         this.userAuth = v;
       },
     });
+
+    this.subscriptions.push(subscription);
   }
 
   logout() {
@@ -38,5 +42,11 @@ export class NavbarComponent {
           console.log(err);
         },
       });
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub => {
+      sub.unsubscribe();
+    });
   }
 }

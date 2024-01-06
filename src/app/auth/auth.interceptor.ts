@@ -11,9 +11,5 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     setHeaders: { ...(token && { token }), lang: 'en' },
   });
 
-  console.log(authReq.headers.keys());
-
-  console.log('interceptor run', req);
-
   return next(authReq);
 };

@@ -1,0 +1,6 @@
+.student-row:not(.header) {
+  cursor: pointer;
+}
+.student-row:not(.header):hover {
+  background-color: #dce0f1 !important;
+}
