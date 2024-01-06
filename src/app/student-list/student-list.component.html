@@ -14,12 +14,16 @@
       <div class="text-center w-25 py-4 h6 mb-0 h6 mb-0">Mobile</div>
       <div class="text-center w-25 py-4 h6 mb-0 h6 mb-0">Age</div>
       <div class="text-center w-25 py-4 h6 mb-0 h6 mb-0">NationalID</div>
+      <div class="text-center w-25 py-4 h6 mb-0 h6 mb-0">Edit/Delete</div>
     </div>
-    @if(students.length){ @for (student of students; track $index) {
+
+    @if(students.length){ @for (student of students; track student.ID) {
     <app-student-card [student]="student" />
     } } @else {
-    <div class="d-flex justify-content-center">
-      <app-spinner class="mt-5" />
+    <div class="d-flex justify-content-center mt-5">
+      @if(loading){<app-spinner />} @else {
+      <p class="text-danger h4">No Student Found</p>
+      }
     </div>
     }
   </div>

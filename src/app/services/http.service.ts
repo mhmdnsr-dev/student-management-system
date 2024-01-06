@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { StudentsService } from './students.service';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,22 +10,27 @@ import { StudentsService } from './students.service';
 export class HttpService {
   constructor(
     private httpClient: HttpClient,
-    private studentsSer: StudentsService
+    private studentsService: StudentsService
   ) {}
 
-  getStudents() {
-    this.httpClient
-      .get<ApiResponse>(`${environment.apiUrl}/Student/Get`)
-      .subscribe({
-        next: v => {
-          console.log(v, 'from request');
+  async getStudents() {
+    const v = await firstValueFrom(
+      this.httpClient.get<ApiResponse>(`${environment.apiUrl}/Student/Get`)
+    );
+    if (v.Success && typeof v.Data === 'object')
+      this.studentsService.students = v.Data;
+  }
 
-          if (v.Success && typeof v.Data === 'object')
-            this.studentsSer.students = v.Data;
-        },
-        error: err => {
-          console.log(err, 'from request');
-        },
-      });
+  async delStudent(id: number) {
+    const v = await firstValueFrom(
+      this.httpClient.delete<ApiResponse>(
+        `${environment.apiUrl}/Student/Delete?id=${id}`
+      )
+    );
+
+    if (v.Success) this.studentsService.deleteStudent(id);
+    else {
+      //TODO: Handling err
+    }
   }
 }

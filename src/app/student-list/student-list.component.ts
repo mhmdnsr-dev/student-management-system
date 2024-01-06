@@ -15,24 +15,26 @@ import { SpinnerComponent } from '../components/ui/spinner/spinner.component';
 export class StudentListComponent {
   students: Student[] = [];
   subscriptions: Subscription[] = [];
+  loading = false;
 
   constructor(
     private http: HttpService,
-    private studentsSer: StudentsService
+    private studentsService: StudentsService
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     if (!this.students.length) {
-      this.http.getStudents();
+      this.loading = true;
 
-      const subscription = this.studentsSer.studentsSubscribe({
-        next: v => {
-          console.log(v, 'in stu ser');
-          this.students = v;
-        },
+      await this.http.getStudents();
+
+      const subscription = this.studentsService.studentsSubscribe({
+        next: v => (this.students = v),
       });
 
       this.subscriptions.push(subscription);
+
+      this.loading = false;
     }
   }
 

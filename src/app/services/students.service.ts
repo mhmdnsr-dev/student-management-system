@@ -26,6 +26,6 @@ export class StudentsService {
   }
 
   deleteStudent(id: number) {
-    this.Students.next([...this.studentsValue.filter(s => s.ID !== id)]);
+    this.Students.next([...this.Students.value.filter(s => s.ID !== id)]);
   }
 }
