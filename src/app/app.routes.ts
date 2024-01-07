@@ -13,7 +13,7 @@ export const routes: Routes = [
   {
     path: 'home',
     loadComponent: () =>
-      import('./student-home/student-home.component').then(
+      import('./pages/student-home/student-home.component').then(
         m => m.StudentHomeComponent
       ),
     canActivate: [authGuard],
@@ -21,7 +21,7 @@ export const routes: Routes = [
   {
     path: 'student/edit/:id',
     loadComponent: () =>
-      import('./student-edit/student-edit.component').then(
+      import('./pages/student-edit/student-edit.component').then(
         m => m.StudentEditComponent
       ),
     canActivate: [authGuard],
@@ -29,7 +29,9 @@ export const routes: Routes = [
   {
     path: 'search',
     loadComponent: () =>
-      import('./student-search/search.component').then(m => m.SearchComponent),
+      import('./pages/student-search/search.component').then(
+        m => m.SearchComponent
+      ),
     canActivate: [authGuard],
   },
   {

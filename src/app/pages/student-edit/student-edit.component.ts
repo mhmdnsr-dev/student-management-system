@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
-import { HttpService } from '../services/http.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SpinnerComponent } from '../components/ui/spinner/spinner.component';
+
+import { FormGroup } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { FormComponent } from '../../components/form/form.component';
+import { SpinnerComponent } from '../../components/ui/spinner/spinner.component';
+import { HttpService } from '../../services/http.service';
 import {
   ageControl,
   emailControl,
@@ -9,10 +13,7 @@ import {
   lastNameControl,
   mobileControl,
   nationalIDControl,
-} from '../../utils/form-controls';
-import { FormComponent } from '../components/form/form.component';
-import { FormGroup } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+} from '../../../utils/form-controls';
 
 @Component({
   selector: 'app-student-edit',

@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
-import { StudentListComponent } from '../student-list/student-list.component';
+
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { StudentsService } from '../services/students.service';
-import { HttpService } from '../services/http.service';
+
 import { Subscription } from 'rxjs';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { StudentListComponent } from '../../features/student-list/student-list.component';
+import { StudentsService } from '../../services/students.service';
+import { HttpService } from '../../services/http.service';
+import studentIsMatch from '../../../utils/studentIsMatch';
 
 @Component({
   selector: 'app-search',
@@ -52,7 +55,7 @@ export class SearchComponent {
         if (query) {
           this.query = query?.toLowerCase();
           this.students = this.studentsService.studentsValue.filter(s => {
-            return this.match(s, params);
+            return studentIsMatch(s, this.query, params);
           });
         } else this.router.navigate(['/home']);
       },
@@ -65,31 +68,6 @@ export class SearchComponent {
     this.subscriptions.forEach(sub => {
       sub.unsubscribe();
     });
-  }
-
-  match(student: Student, params: ParamMap) {
-    const studentKeys = ['Name', 'Email', 'Mobile', 'NationalID', 'Age'];
-    const filterKeys = params.keys.filter(k => k !== 'q' && params.get(k));
-    const queryKeyword = this.query.toLowerCase();
-
-    const isSearchFound = studentKeys.some(key => {
-      if (key === 'Age') return student['Age'] === +queryKeyword;
-      return student[key as keyof Student]
-        ?.toString()
-        .toLowerCase()
-        .includes(queryKeyword);
-    });
-
-    const isFilterFound = filterKeys.every(key => {
-      const filterKeyword = params.get(key) as string;
-      if (key === 'Age') return student['Age'] === +filterKeyword.toLowerCase();
-      return student[key as keyof Student]
-        ?.toString()
-        .toLowerCase()
-        .includes(filterKeyword.toLowerCase());
-    });
-
-    return filterKeys.length ? isSearchFound && isFilterFound : isSearchFound;
   }
 
   submit(form: NgForm) {

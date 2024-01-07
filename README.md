@@ -1,27 +1,66 @@
-# StudentManagementSystem
+# Code Challenge
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.5.
+Student Management System web application using Angular.
 
-## Development server
+## Taple of contents
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- [Code Challenge](#code-challenge)
+  - [Taple of contents](#taple-of-contents)
+  - [Overview](#overview)
+  - [Code and Project structure](#code-and-project-structure)
+    - [Installation](#installation)
+    - [Links](#links)
+  - [Author](#author)
 
-## Code scaffolding
+## Overview
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+This assignment revolves around creating a Student CRUD application and implementing user authentication features
 
-## Build
+## Code and Project structure
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- **/app**
 
-## Running unit tests
+  - `/components`
+    - `/form`: Reusable form component.
+    - `/navbar`: Houses the application footer component.
+    - `/footer`: Houses the application navbar component.
+    - `/not-found`: Houses the application not-found component.
+    - `/student-card`: Reusable Card component.
+  - `/pages`
+    - `/student-home`: Home page.
+    - `/student-edit`: Edit student page.
+    - `/student-search`: search page.
+  - `/services`
+    - `/http.service.ts`: Handles communication with the backend API.
+    - `/students.service.ts`: Handles state managenment for entire app.
+    - `/auth.service.ts`: Handles authentication state for user.
+  - `/auth`
+    - `/login`: Contains the login-related components and logic.
+    - `/register`: Houses the registration-related components and logic.
+    - `/auth-guard`: Features authentication guard functionality.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- **/utils**
+  - `/form-controls`: Reusable utilitys of form control data.
+  - `/patterns`: Reusable Regex patterns.
+  - `/patterns`: Form control validators
+  - `/patterns`: Complex search and filtration function
+  -
 
-## Running end-to-end tests
+### Installation
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```shell
+# Example commands
+git clone https://github.com/mhmdnsr-dev/student-management-system
+cd student-management-system
+npm install
+npm run start
+```
 
-## Further help
+### Links
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- [GitHub URL](https://github.com/mhmdnsr-dev/student-management-system)
+- [Live URL](https://student-management-system-blush.vercel.app/login)
+
+## Author
+
+- [Mohamed Nasr](https://www.linkedin.com/in/mhmdnsr-dev)

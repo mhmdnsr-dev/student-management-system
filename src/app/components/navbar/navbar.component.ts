@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { Subscription } from 'rxjs';
 import { HttpService } from '../../services/http.service';
 import { SpinnerComponent } from '../ui/spinner/spinner.component';
-import { SearchComponent } from '../../student-search/search.component';
 import { FormsModule } from '@angular/forms';
 
 @Component({

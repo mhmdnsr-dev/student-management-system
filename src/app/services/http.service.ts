@@ -4,7 +4,7 @@ import { environment } from '../../environments/environment';
 import { StudentsService } from './students.service';
 import { firstValueFrom } from 'rxjs';
 import { FormGroup } from '@angular/forms';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',

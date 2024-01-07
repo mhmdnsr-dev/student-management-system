@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModalComponent } from '../components/modal/modal.component';
+import { ModalComponent } from '../../components/modal/modal.component';
 import {
   ageControl,
   emailControl,
@@ -7,7 +7,8 @@ import {
   lastNameControl,
   mobileControl,
   nationalIDControl,
-} from '../../utils/form-controls';
+} from '../../../utils/form-controls';
+
 @Component({
   selector: 'app-student-create',
   standalone: true,
