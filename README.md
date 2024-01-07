@@ -8,13 +8,14 @@ Student Management System web application using Angular.
   - [Taple of contents](#taple-of-contents)
   - [Overview](#overview)
   - [Code and Project structure](#code-and-project-structure)
-    - [Installation](#installation)
-    - [Links](#links)
+  - [Installation and run locally](#installation-and-run-locally)
+  - [Build with](#build-with)
+  - [Links](#links)
   - [Author](#author)
 
 ## Overview
 
-This assignment revolves around creating a Student CRUD application and implementing user authentication features
+This project is a web application developed using Angular, designed to serve as a comprehensive Student Management System. The primary objectives of this project include creating a robust CRUD (Create, Read, Update, Delete) functionality for managing student records and implementing essential user authentication features.
 
 ## Code and Project structure
 
@@ -46,7 +47,7 @@ This assignment revolves around creating a Student CRUD application and implemen
   - `/patterns`: Complex search and filtration function
   -
 
-### Installation
+## Installation and run locally
 
 ```shell
 # Example commands
@@ -56,7 +57,12 @@ npm install
 npm run start
 ```
 
-### Links
+## Build with
+
+- Angular framework
+- Bootstrap framework
+
+## Links
 
 - [GitHub URL](https://github.com/mhmdnsr-dev/student-management-system)
 - [Live URL](https://student-management-system-blush.vercel.app/login)
