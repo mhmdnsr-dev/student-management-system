@@ -10,9 +10,6 @@ import { authInterceptor } from './auth/auth.interceptor';
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, RouterOutlet, NavbarComponent, FooterComponent],
-  // providers: [
-  //   { provide: HTTP_INTERCEPTORS, useValue: authInterceptor, multi: true },
-  // ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

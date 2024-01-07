@@ -1,14 +1,4 @@
-<div class="student-list">
-  <div class="text-center my-3">
-    <button
-      class="btn btn-primary active new_btn"
-      data-bs-toggle="modal"
-      data-bs-target="#create-student">
-      New Student
-      <img src="/assets/images/icons/plus-80.png" width="40px" />
-    </button>
-  </div>
-
+<div>
   <!--  -->
   <div class="rounded-3 col-11 m-auto overflow-hidden">
     <div class="header d-flex justify-content-between text-white">
@@ -20,7 +10,7 @@
       <div class="text-center w-25 py-4 h6 mb-0 h6 mb-0">Edit/Delete</div>
     </div>
 
-    @if(students.length){ @for (student of students; track student.ID) {
+    @if(students?.length){ @for (student of students; track student.ID) {
     <app-student-card [student]="student" />
     } } @else {
     <div class="d-flex justify-content-center mt-5">
@@ -31,13 +21,3 @@
     }
   </div>
 </div>
-
-<!-- Modal -->
-<app-modal
-  actionText="Create"
-  btnShape="btn-primary"
-  message="TESTTT"
-  modalId="create-student"
-  modalTitle="Create Student"
-  [formControls]="createStudentControls"
-  (modalConfirmed)="createStudent($event)" />

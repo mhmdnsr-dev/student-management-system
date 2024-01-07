@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { authGuard } from './auth/auth.guard';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
-import { NotFoundComponent } from './components/not-found/not-found.component';
 
 export const routes: Routes = [
   {
@@ -13,8 +12,8 @@ export const routes: Routes = [
   {
     path: 'home',
     loadComponent: () =>
-      import('./student-list/student-list.component').then(
-        m => m.StudentListComponent
+      import('./student-home/student-home.component').then(
+        m => m.StudentHomeComponent
       ),
     canActivate: [authGuard],
   },
@@ -27,6 +26,12 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
+    path: 'search',
+    loadComponent: () =>
+      import('./student-search/search.component').then(m => m.SearchComponent),
+    canActivate: [authGuard],
+  },
+  {
     path: 'login',
     component: LoginComponent,
     canActivate: [authGuard],
@@ -36,8 +41,8 @@ export const routes: Routes = [
     component: RegisterComponent,
     canActivate: [authGuard],
   },
-  {
-    path: '**',
-    component: NotFoundComponent,
-  },
+  // {
+  //   path: '**',
+  //   component: NotFoundComponent,
+  // },
 ];

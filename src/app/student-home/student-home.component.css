@@ -1,0 +1,7 @@
+.new_btn {
+  background-color: #4a5ce6;
+}
+.new_btn:hover img {
+  transition: all 1.1s;
+  transform: rotate(360deg);
+}

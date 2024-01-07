@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { StudentsService } from './students.service';
 import { firstValueFrom } from 'rxjs';
 import { FormGroup } from '@angular/forms';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,9 +12,22 @@ import { FormGroup } from '@angular/forms';
 export class HttpService {
   constructor(
     private httpClient: HttpClient,
-    private studentsService: StudentsService
+    private studentsService: StudentsService,
+    private authService: AuthService
   ) {}
 
+  async logout() {
+    const v = await firstValueFrom(
+      this.httpClient.post<ApiResponse>(
+        `${environment.apiUrl}/User/Logout`,
+        null
+      )
+    );
+    if (v.Success) {
+      this.authService.logout();
+    }
+    return v;
+  }
   async getStudents() {
     const v = await firstValueFrom(
       this.httpClient.get<ApiResponse>(`${environment.apiUrl}/Student/Get`)
@@ -41,10 +55,10 @@ export class HttpService {
       )
     );
 
-    if (v.Success) return v.Data;
-    else {
-      throw new Error(v.Message);
-    }
+    return v;
+    // else {
+    //   throw new Error(v.Message);
+    // }
   }
 
   async editStudent(student: Student) {

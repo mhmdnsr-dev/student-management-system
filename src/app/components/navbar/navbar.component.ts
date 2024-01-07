@@ -1,23 +1,28 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
 import { Subscription } from 'rxjs';
+import { HttpService } from '../../services/http.service';
+import { SpinnerComponent } from '../ui/spinner/spinner.component';
+import { SearchComponent } from '../../student-search/search.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, SpinnerComponent, FormsModule],
   templateUrl: './navbar.component.html',
 })
 export class NavbarComponent {
   userAuth!: Auth;
-
+  loading = false;
   subscriptions: Subscription[] = [];
+
+  search!: string;
   constructor(
     private authService: AuthService,
-    private httpClient: HttpClient
+    private httpService: HttpService,
+    private router: Router
   ) {
     const subscription = this.authService.subscribe({
       next: v => {
@@ -28,20 +33,18 @@ export class NavbarComponent {
     this.subscriptions.push(subscription);
   }
 
-  logout() {
-    this.httpClient
-      .post<ApiResponse>(`${environment.apiUrl}/User/Logout`, null)
-      .subscribe({
-        next: value => {
-          console.log(value);
-          if (value.Success) this.authService.logout();
-          else {
-          }
-        },
-        error(err) {
-          console.log(err);
-        },
-      });
+  async logout() {
+    this.loading = true;
+    await this.httpService.logout();
+    this.loading = false;
+  }
+
+  submitSearch(keyword: string) {
+    this.router.navigate(['/search'], {
+      queryParams: {
+        q: keyword || '',
+      },
+    });
   }
 
   ngOnDestroy() {

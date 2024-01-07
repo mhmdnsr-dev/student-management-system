@@ -22,12 +22,12 @@ export class ModalComponent {
 
   @Output() modalConfirmed = new EventEmitter<FormGroup | undefined>();
 
-  async modalConfirm(e?: FormGroup) {
-    this.modalConfirmed.emit(e);
+  async modalConfirm(form?: FormGroup) {
+    this.modalConfirmed.emit(form);
 
-    if (e) {
+    if (form) {
       this.loading = true;
-      await this.httpService.createStudent(e);
+      await this.httpService.createStudent(form);
       this.loading = false;
     }
   }

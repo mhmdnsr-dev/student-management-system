@@ -1,0 +1,17 @@
+<div class="text-center my-3">
+  <button
+    class="btn btn-primary active new_btn"
+    data-bs-toggle="modal"
+    data-bs-target="#create-student">
+    New Student
+    <img src="/assets/images/icons/plus-80.png" width="40px" />
+  </button>
+</div>
+<!-- Modal -->
+<app-modal
+  actionText="Create"
+  btnShape="btn-primary"
+  message="TESTTT"
+  modalId="create-student"
+  modalTitle="Create Student"
+  [formControls]="createStudentControls" />

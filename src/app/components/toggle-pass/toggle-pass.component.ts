@@ -12,13 +12,10 @@ export class TogglePassComponent {
 
   toggleShowPass(e: MouseEvent) {
     const target = e.target as HTMLElement;
-
     const targetInput = target.closest('div')?.querySelector('input');
-
-     this.showPassword = !this.showPassword;
-   
-
     const attr = targetInput?.getAttribute('type');
+
+    this.showPassword = !this.showPassword;
 
     if (attr === 'password') targetInput?.setAttribute('type', 'text');
     else targetInput?.setAttribute('type', 'password');

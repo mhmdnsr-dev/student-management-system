@@ -40,16 +40,23 @@ export class StudentEditComponent {
       this.loading = true;
       const data = (await this.httpService.getEditableStudent(
         this.id
-      )) as Student;
+      )) as ApiResponse;
 
-      this.editStudentControls = [
-        { ...firstNameControl, initianlValue: data.FirstName },
-        { ...lastNameControl, initianlValue: data.LastName },
-        { ...mobileControl, initianlValue: data.Mobile },
-        { ...emailControl, initianlValue: data.Email },
-        { ...nationalIDControl, initianlValue: data.NationalID },
-        { ...ageControl, initianlValue: data.Age },
-      ];
+      console.log(data);
+
+      if (data.Data) {
+        const student = data.Data as Student;
+        this.editStudentControls = [
+          { ...firstNameControl, initianlValue: student.FirstName },
+          { ...lastNameControl, initianlValue: student.LastName },
+          { ...mobileControl, initianlValue: student.Mobile },
+          { ...emailControl, initianlValue: student.Email },
+          { ...nationalIDControl, initianlValue: student.NationalID },
+          { ...ageControl, initianlValue: student.Age },
+        ];
+      } else {
+        this.router.navigate(['not-found']);
+      }
 
       this.loading = false;
     } catch (error) {

@@ -12,10 +12,27 @@
     <!--  -->
     @if (userAuth.isAuthenticated) {
 
-    <!-- TODO: Search component -->
+    <div class="">
+      <form class="d-flex" role="search" (ngSubmit)="submitSearch(search)">
+        <input
+          class="form-control me-2"
+          type="search"
+          aria-label="Search"
+          [(ngModel)]="search"
+          name="search"
+          list="datalistOptions"
+          id="exampleDataList"
+          placeholder="Type to search..." />
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
 
     <ul class="navbar-nav mb-2 mb-lg-0 gap-3">
       <li class="nav-item">
+        @if(loading){
+        <app-spinner />
+        }@else {
+
         <button type="button" class="btn btn-outline-danger" (click)="logout()">
           Logout
           <svg
@@ -33,6 +50,7 @@
               d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"></path>
           </svg>
         </button>
+        }
       </li>
     </ul>
     }
