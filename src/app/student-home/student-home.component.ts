@@ -39,10 +39,11 @@ export class StudentHomeComponent {
     try {
       this.loading = true;
       await this.httpService.getStudents();
-      this.loading = false;
     } catch (error) {
       const err = error as Error;
       this.errMsg = err.message as string;
+    } finally {
+      this.loading = false;
     }
   }
 

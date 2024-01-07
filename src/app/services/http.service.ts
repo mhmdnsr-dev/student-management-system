@@ -16,19 +16,47 @@ export class HttpService {
     private authService: AuthService
   ) {}
 
-  async logout() {
-    const v = await firstValueFrom(
-      this.httpClient.post<ApiResponse>(
-        `${environment.apiUrl}/User/Logout`,
-        null
-      )
-    );
-    if (v.Success) {
-      this.authService.logout();
+  async login(form: FormGroup) {
+    let errMsg = 'Sorry! An error occurred while trying to login';
+    const { Username, Password } = form.value;
+    try {
+      const v = await firstValueFrom(
+        this.httpClient.post<ApiResponse>(`${environment.apiUrl}/User/Login`, {
+          Username,
+          Password,
+        })
+      );
+      if (v.Success) this.authService.login(v.Data as string);
+      else {
+        errMsg = v.Message;
+        throw '';
+      }
+    } catch (error) {
+      throw new Error(errMsg);
     }
-    return v;
   }
+
+  async logout() {
+    let errMsg = 'Sorry! An error occurred while trying to logout';
+    try {
+      const v = await firstValueFrom(
+        this.httpClient.post<ApiResponse>(
+          `${environment.apiUrl}/User/Logout`,
+          null
+        )
+      );
+      if (v.Success) this.authService.logout();
+      else {
+        errMsg = v.Message;
+        throw '';
+      }
+    } catch (error) {
+      throw new Error(errMsg);
+    }
+  }
+
   async getStudents() {
+    let errMsg = 'Sorry! An error occurred while trying to get students';
     try {
       const v = await firstValueFrom(
         this.httpClient.get<ApiResponse>(`${environment.apiUrl}/Student/Get`)
@@ -36,80 +64,96 @@ export class HttpService {
       if (v.Success) {
         this.studentsService.students = v.Data as Student[];
       } else {
-        throw new Error(v.Message);
+        errMsg = v.Message;
+        throw '';
       }
     } catch (error) {
-      throw new Error('Sorry! An error occurred while trying to get students');
+      throw new Error(errMsg);
     }
   }
 
   async delStudent(id: number) {
-    const v = await firstValueFrom(
-      this.httpClient.delete<ApiResponse>(
-        `${environment.apiUrl}/Student/Delete?id=${id}`
-      )
-    );
-
-    if (v.Success) this.studentsService.deleteStudent(id);
-    else {
-      //TODO: Handling err
+    let errMsg = 'Sorry! An error occurred while trying to delete student';
+    try {
+      const v = await firstValueFrom(
+        this.httpClient.delete<ApiResponse>(
+          `${environment.apiUrl}/Student/Delete?id=${id}`
+        )
+      );
+      if (v.Success) {
+        this.studentsService.deleteStudent(id);
+      } else {
+        errMsg = v.Message;
+        throw '';
+      }
+    } catch (error) {
+      throw new Error(errMsg);
     }
   }
 
   async getEditableStudent(id: number) {
-    const v = await firstValueFrom(
-      this.httpClient.get<ApiResponse>(
-        `${environment.apiUrl}/Student/GetEditableByID?id=${id}`
-      )
-    );
-
-    return v;
-    // else {
-    //   throw new Error(v.Message);
-    // }
+    let errMsg = 'Sorry! An error occurred while trying to get student info';
+    try {
+      const v = await firstValueFrom(
+        this.httpClient.get<ApiResponse>(
+          `${environment.apiUrl}/Student/GetEditableByID?id=${id}`
+        )
+      );
+      if (v.Success) return v;
+      else {
+        errMsg = v.Message;
+        throw '';
+      }
+    } catch (error) {
+      throw new Error(errMsg);
+    }
   }
 
   async editStudent(student: Student) {
-    const v = await firstValueFrom(
-      this.httpClient.put<ApiResponse>(
-        `${environment.apiUrl}/Student/PUT`,
-        student
-      )
-    );
-
-    if (v.Success) this.studentsService.editStudent(student);
-    else {
-      // throw new Error(v.Message);
+    let errMsg = 'Sorry! An error occurred while trying to get student info';
+    try {
+      const v = await firstValueFrom(
+        this.httpClient.put<ApiResponse>(
+          `${environment.apiUrl}/Student/PUT`,
+          student
+        )
+      );
+      if (v.Success)
+        if (v.Success) this.studentsService.editStudent(student);
+        else {
+          errMsg = v.Message;
+          throw '';
+        }
+    } catch (error) {
+      throw new Error(errMsg);
     }
-    return v;
   }
 
   async createStudent(form: FormGroup) {
-    const v = await firstValueFrom(
-      this.httpClient.post<ApiResponse>(
-        `${environment.apiUrl}/Student/POST`,
-        form.value
-      )
-    );
-    console.log(v, 'from createStudent request');
-
-    if (v.Success && typeof v.Data === 'number') {
-      const student: Student = {
-        Name: `${form.value['FirstName']} ${form.value['LastName']}`,
-        Mobile: form.value['Mobile'],
-        Email: form.value['Email'],
-        Age: form.value['Age'],
-        ID: v.Data,
-        NationalID: form.value['NationalID'],
-      };
-
-      console.log(student, 'student created');
-      form.reset();
-      this.studentsService.createStudent(student);
-    } else {
-      //TODO: Handling err
-      if (v.Message === 'Sorry already exists.')
-        form.setErrors({ errRes: v.Message });
+    let errMsg = 'Sorry! An error occurred while trying to create new student';
+    try {
+      const v = await firstValueFrom(
+        this.httpClient.post<ApiResponse>(
+          `${environment.apiUrl}/Student/POST`,
+          form.value
+        )
+      );
+      if (v.Success) {
+        const student: Student = {
+          Name: `${form.value['FirstName']} ${form.value['LastName']}`,
+          Mobile: form.value['Mobile'],
+          Email: form.value['Email'],
+          Age: form.value['Age'],
+          ID: v.Data as number,
+          NationalID: form.value['NationalID'],
+        };
+        this.studentsService.createStudent(student);
+      } else {
+        errMsg = v.Message;
+        throw '';
+      }
+    } catch (error) {
+      throw new Error(errMsg);
     }
   }
 }

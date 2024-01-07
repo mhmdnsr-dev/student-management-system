@@ -38,10 +38,11 @@ export class SearchComponent {
     try {
       this.loading = true;
       await this.httpService.getStudents();
-      this.loading = false;
     } catch (error) {
       const err = error as Error;
       this.errMsg = err.message as string;
+    } finally {
+      this.loading = false;
     }
 
     const subscription = this.route.queryParamMap.subscribe({
@@ -65,20 +66,6 @@ export class SearchComponent {
       sub.unsubscribe();
     });
   }
-
-  // filterBy(e: Event) {
-  //   clearTimeout(this.timer);
-
-  //   this.timer = setTimeout(() => {
-  //     const targetEl = e.target as HTMLInputElement;
-  //     const keyword = targetEl.value.toLowerCase();
-  //     const by = targetEl.name as keyof Student;
-
-  //     this.students = this.studentsService.studentsValue.filter(s => {
-  //       return this.search(s, keyword, by);
-  //     });
-  //   }, 600);
-  // }
 
   match(student: Student, params: ParamMap) {
     const studentKeys = ['Name', 'Email', 'Mobile', 'NationalID', 'Age'];

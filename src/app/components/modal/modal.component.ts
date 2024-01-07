@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { FormComponent } from '../form/form.component';
 import { FormGroup } from '@angular/forms';
 import { HttpService } from '../../services/http.service';
@@ -12,6 +19,7 @@ import { HttpService } from '../../services/http.service';
 })
 export class ModalComponent {
   constructor(private httpService: HttpService) {}
+  @ViewChild('closeBtn') closeBtn!: ElementRef;
   @Input() message!: string;
   @Input() actionText!: string;
   @Input() modalTitle!: string;
@@ -20,15 +28,23 @@ export class ModalComponent {
   @Input() formControls!: _FormControl[];
   loading = false;
 
-  @Output() modalConfirmed = new EventEmitter<FormGroup | undefined>();
+  @Output() modalConfirmed = new EventEmitter();
 
   async modalConfirm(form?: FormGroup) {
-    this.modalConfirmed.emit(form);
+    this.modalConfirmed.emit();
 
     if (form) {
-      this.loading = true;
-      await this.httpService.createStudent(form);
-      this.loading = false;
+      try {
+        this.loading = true;
+        await this.httpService.createStudent(form);
+
+        this.closeBtn.nativeElement.click();
+      } catch (error) {
+        const err = error as Error;
+        form.setErrors({ errRes: err.message });
+      } finally {
+        this.loading = false;
+      }
     }
   }
 }

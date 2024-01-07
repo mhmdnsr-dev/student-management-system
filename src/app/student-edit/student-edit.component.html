@@ -1,7 +1,14 @@
 <div class="text-center mt-4">
-  @if (loading || !editStudentControls) {
+  <p class="text-danger h5 text-center my-5">
+    {{ errMsg | json }}
+  </p>
+  @if (loading ) {
   <app-spinner />
-  }@else if (editStudentControls) { 
-		<app-form [loading]="submitLoading" [controls]="editStudentControls" submitText="Edit" (formSubmit)="submit($event)"/> 
-	}
+  }@else if (editStudentControls) {
+  <app-form
+    [loading]="submitLoading"
+    [controls]="editStudentControls"
+    submitText="Edit"
+    (formSubmit)="submit($event)" />
+  }
 </div>

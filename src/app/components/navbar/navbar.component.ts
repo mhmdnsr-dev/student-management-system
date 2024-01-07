@@ -34,16 +34,22 @@ export class NavbarComponent {
   }
 
   async logout() {
-    this.loading = true;
-    await this.httpService.logout();
-    this.loading = false;
+    try {
+      this.loading = true;
+      await this.httpService.logout();
+    } catch (error) {
+      const err = error as Error;
+      alert(err.message);
+    } finally {
+      this.loading = false;
+    }
   }
 
   submitSearch(keyword: string) {
     if (!keyword) return;
     this.router.navigate(['/search'], {
       queryParams: {
-        q: keyword || '',
+        q: keyword,
       },
     });
   }

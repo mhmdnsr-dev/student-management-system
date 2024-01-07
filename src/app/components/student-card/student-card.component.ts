@@ -14,6 +14,7 @@ import { SpinnerComponent } from '../ui/spinner/spinner.component';
 export class StudentCardComponent {
   @Input() student!: Student;
   loading = false;
+  errMsg!: string;
 
   constructor(private router: Router, private httpService: HttpService) {}
 
@@ -22,10 +23,14 @@ export class StudentCardComponent {
   }
 
   async del() {
-    this.loading = true;
-
-    await this.httpService.delStudent(this.student.ID);
-
-    this.loading = false;
+    try {
+      this.loading = true;
+      await this.httpService.delStudent(this.student.ID);
+    } catch (error) {
+      const err = error as Error;
+      this.errMsg = err.message;
+    } finally {
+      this.loading = false;
+    }
   }
 }

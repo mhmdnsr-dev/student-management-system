@@ -12,17 +12,19 @@ import {
 } from '../../utils/form-controls';
 import { FormComponent } from '../components/form/form.component';
 import { FormGroup } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-student-edit',
   standalone: true,
-  imports: [SpinnerComponent, FormComponent],
+  imports: [SpinnerComponent, FormComponent, CommonModule],
   templateUrl: './student-edit.component.html',
   styleUrl: './student-edit.component.css',
 })
 export class StudentEditComponent {
   student!: Student;
   loading = false;
+  errMsg!: string;
   submitLoading = false;
   id: number;
   editStudentControls!: _FormControl[];
@@ -38,12 +40,7 @@ export class StudentEditComponent {
   async ngOnInit() {
     try {
       this.loading = true;
-      const data = (await this.httpService.getEditableStudent(
-        this.id
-      )) as ApiResponse;
-
-      console.log(data);
-
+      const data = await this.httpService.getEditableStudent(this.id);
       if (data.Data) {
         const student = data.Data as Student;
         this.editStudentControls = [
@@ -57,38 +54,31 @@ export class StudentEditComponent {
       } else {
         this.router.navigate(['not-found']);
       }
-
-      this.loading = false;
     } catch (error) {
-      //TODO: Errors Handling
+      const err = error as Error;
+      this.errMsg = err.message;
+    } finally {
+      this.loading = false;
     }
   }
 
   async submit(form: FormGroup) {
-    console.log(form, 'from submit edit');
-
-    const student: Student = {
-      ...form.value,
-      ID: this.id,
-      NameArabic: 'null',
-      NameEnglish: `${form.value.FirstName} ${form.value.LastName}`,
-      Age: +form.value.Age,
-    };
-    console.log(student);
-
-    this.submitLoading = true;
     try {
-      const data = await this.httpService.editStudent(student);
-
-      console.log(data, 'edit request');
-      if (data.Success) {
-        this.router.navigate(['home']);
-      } else {
-        form.setErrors({ errRes: data.Message });
-      }
-      this.submitLoading = false;
+      const student: Student = {
+        ...form.value,
+        ID: this.id,
+        NameArabic: 'null',
+        NameEnglish: `${form.value.FirstName} ${form.value.LastName}`,
+        Age: +form.value.Age,
+      };
+      this.submitLoading = true;
+      await this.httpService.editStudent(student);
+      this.router.navigate(['home']);
     } catch (error) {
-      //TODO: Errors Handling
+      const err = error as Error;
+      form.setErrors({ errRes: err.message });
+    } finally {
+      this.submitLoading = false;
     }
   }
 }
