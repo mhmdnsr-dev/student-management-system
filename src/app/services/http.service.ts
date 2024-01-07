@@ -29,10 +29,18 @@ export class HttpService {
     return v;
   }
   async getStudents() {
-    const v = await firstValueFrom(
-      this.httpClient.get<ApiResponse>(`${environment.apiUrl}/Student/Get`)
-    );
-    if (v.Success) this.studentsService.students = v.Data as Student[];
+    try {
+      const v = await firstValueFrom(
+        this.httpClient.get<ApiResponse>(`${environment.apiUrl}/Student/Get`)
+      );
+      if (v.Success) {
+        this.studentsService.students = v.Data as Student[];
+      } else {
+        throw new Error(v.Message);
+      }
+    } catch (error) {
+      throw new Error('Sorry! An error occurred while trying to get students');
+    }
   }
 
   async delStudent(id: number) {

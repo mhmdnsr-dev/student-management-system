@@ -1,5 +1,11 @@
 <div>
   <app-student-create />
 
-  <app-student-list [loading]="loading" [students]="students" />
+  @if(errMsg){
+  <p class="text-danger h5 text-center my-5">
+    {{ errMsg | json }}
+  </p>
+  }@else{
+  <app-student-list [students]="students" [loading]="loading" />
+  }
 </div>

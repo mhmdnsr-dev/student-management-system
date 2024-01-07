@@ -5,11 +5,17 @@ import { HttpService } from '../services/http.service';
 import { StudentsService } from '../services/students.service';
 import { Subscription } from 'rxjs';
 import { StudentCreateComponent } from '../student-create/student-create.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-student-home',
   standalone: true,
-  imports: [ModalComponent, StudentListComponent, StudentCreateComponent],
+  imports: [
+    ModalComponent,
+    StudentListComponent,
+    StudentCreateComponent,
+    CommonModule,
+  ],
   templateUrl: './student-home.component.html',
   styleUrl: './student-home.component.css',
 })
@@ -17,6 +23,7 @@ export class StudentHomeComponent {
   students: Student[] = [];
   loading = false;
   subscriptions: Subscription[] = [];
+  errMsg!: string;
 
   constructor(
     private httpService: HttpService,
@@ -29,11 +36,14 @@ export class StudentHomeComponent {
   }
 
   async ngOnInit() {
-    this.loading = true;
-
-    await this.httpService.getStudents();
-
-    this.loading = false;
+    try {
+      this.loading = true;
+      await this.httpService.getStudents();
+      this.loading = false;
+    } catch (error) {
+      const err = error as Error;
+      this.errMsg = err.message as string;
+    }
   }
 
   ngOnDestroy() {

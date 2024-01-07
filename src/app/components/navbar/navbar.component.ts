@@ -40,6 +40,7 @@ export class NavbarComponent {
   }
 
   submitSearch(keyword: string) {
+    if (!keyword) return;
     this.router.navigate(['/search'], {
       queryParams: {
         q: keyword || '',
