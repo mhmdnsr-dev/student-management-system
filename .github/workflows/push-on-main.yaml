@@ -1,4 +1,4 @@
-name: Push On Main2
+name: Push On Main
 on: push
 jobs:
   Print-Branch-Name:
