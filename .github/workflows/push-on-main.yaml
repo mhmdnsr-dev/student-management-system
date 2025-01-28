@@ -8,3 +8,11 @@ jobs:
         run: echo "Main Branch"
       - name: Print-My-Name
         run: echo "Mohamed Nasr"
+  Anther-Job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print-Branch-Name
+        run: echo "Main Branch"
+      - name: Print-My-Name
+        run: echo "Mohamed Nasr"
+
