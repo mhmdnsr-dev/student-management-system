@@ -1,0 +1,10 @@
+name: PR Into Main
+on: pull_request
+jobs:
+  Print-Branch-Name:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print-Branch-Name
+        run: echo "OS ${{ runner.os }}"
+      - name: Print-My-Name
+        run: echo "Mohamed Nasr run ${{ github.event_name }}."
