@@ -1,0 +1,8 @@
+name: Push On Main2
+on: push
+jobs:
+  Print-Branch-Name:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print-Branch-Name
+        run: echo "Main Branch"
